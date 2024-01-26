@@ -4,7 +4,6 @@ import { Colors } from "./components/Colors";
 function App() {
   return (
     <div className="App">
-      <div className="Title">Colorful</div>
       <Colors />
     </div>
   );

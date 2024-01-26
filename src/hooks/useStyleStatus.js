@@ -7,12 +7,12 @@ function useStyleStatus() {
     setIsActive(!isActive);
   };
 
-  const activeStyle = {
-    opacity: "1",
+  const inactiveStyle = {
+    opacity: "0",
     pointerEvents: "all",
   };
 
-  const inactiveStyle = {
+  const activeStyle = {
     position: "fixed",
     top: "0%",
     left: "0%",
@@ -27,7 +27,7 @@ function useStyleStatus() {
     pointerEvents: "none",
   };
 
-  return { style: isActive ? activeStyle : inactiveStyle, toggle, isActive };
+  return { style: isActive ? inactiveStyle : activeStyle, toggle, isActive };
 }
 
 export { useStyleStatus };

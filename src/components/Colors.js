@@ -1,6 +1,7 @@
 import React from "react";
-import { ColorSliders } from "./color-sliders";
-import { ColorControls, ControlPanels, ControlContainers } from "./color-panels";
+
+import { ColorButtons } from "./color-buttons";
+import { HexSection } from "./color-hex";
 import { css } from "@emotion/css";
 
 function Colors() {
@@ -8,46 +9,25 @@ function Colors() {
     <>
       <div
         className={css`
-          min-height: 40rem;
+          min-height: 45rem;
           display: flex;
-          color: rgb(112, 108, 108);
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
         `}
       >
-        <div
-          className={css`
-            height: 40rem;
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-evenly;
-            position: relative;
-            overflow: hidden;
-          `}
-        >
-          <h2>Hex</h2>
-          <ColorControls />
-          <ColorSliders />
+        <HexSection title="Hex 1" />
 
-          <h2>Hex</h2>
-          <ColorControls />
-          <ColorSliders />
+        <HexSection title="Hex 2" />
 
-          <h2>Hex</h2>
-          <ColorControls />
-          <ColorSliders />
+        <HexSection title="Hex 3" />
 
-          <h2>Hex</h2>
-          <ColorControls />
-          <ColorSliders />
+        <HexSection title="Hex 4" />
 
-          <h2>Hex</h2>
-          <ColorControls />
-          <ColorSliders />
-        </div>
+        <HexSection title="Hex 5" />
       </div>
-      <ControlPanels />
-      <ControlContainers />
+
+      <ColorButtons />
     </>
   );
 }
