@@ -1,6 +1,50 @@
 import React from "react";
 import { css } from "@emotion/css";
-import { fadeIn } from "../styles/animations";
+import { fadeIn, slideInAnimation } from "../styles/animations";
+
+const SliderPopup = ({ onClose, sliderPopupVisible }) => {
+  return (
+    <div
+      className={css`
+        position: absolute;
+        top: 7rem;
+        left: calc(100% - 10px);
+        transform: translateX(-100%);
+        background: white;
+        padding: 1rem;
+        height: fit-content;
+        width: fit-content;
+        margin-left: 10px;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        animation: ${slideInAnimation} 1s ease-in;
+        z-index: 1;
+      `}
+    >
+      <span>Hue</span>
+      <input type="range" min="0" max="360" step="1" name="hue" className="hue-input" data-hue="1" />
+
+      <span>Brightness</span>
+      <input type="range" min="0" max="1" step="0.01" name="brightness" className="bright-input" data-bright="1" />
+
+      <span>Saturation</span>
+      <input type="range" min="0" max="1" step="0.01" name="saturation" className="sat-input" data-sat="1" />
+      <button
+        onClick={onClose}
+        className={css`
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          cursor: pointer;
+          background: transparent;
+          border: none;
+        `}
+      >
+        X
+      </button>
+    </div>
+  );
+};
 
 const CopyPopup = ({ onClose }) => {
   return (
@@ -57,4 +101,4 @@ const CopyPopup = ({ onClose }) => {
   );
 };
 
-export { CopyPopup };
+export { CopyPopup, SliderPopup };

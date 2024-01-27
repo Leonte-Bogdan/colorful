@@ -8,7 +8,7 @@ const Button = styled.button`
   font-family: "Poppins", sans-serif;
 `;
 
-function ColorControls() {
+function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup }) {
   return (
     <div
       className={css`
@@ -17,12 +17,26 @@ function ColorControls() {
         align-items: center;
         gap: 1.5rem;
         justify-content: space-evenly;
+        z-index: 1;
       `}
     >
-      <Button className={css``}>
+      <Button
+        className={css`
+          display: flex;
+          flex-direction: column;
+          background: white;
+        `}
+        onClick={sliderPopupVisible ? closeSliderPopup : openSliderPopup}
+      >
         <FontAwesomeIcon icon={faSliders} />
       </Button>
-      <Button className={css``}>
+      <Button
+        className={css`
+          display: flex;
+          flex-direction: column;
+          background: white;
+        `}
+      >
         <FontAwesomeIcon icon={faLock} />
       </Button>
     </div>

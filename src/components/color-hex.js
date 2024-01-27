@@ -1,10 +1,19 @@
 import React from "react";
 import { css } from "@emotion/css";
-import { CopyPopup } from "./color-popups";
+import { CopyPopup, SliderPopup } from "./color-popups";
 import { ColorControls } from "./color-buttons";
 
 function HexSection({ title }) {
   const [popupVisible, setPopupVisible] = React.useState(false);
+  const [sliderPopupVisible, setSliderPopupVisible] = React.useState(false);
+
+  const openSliderPopup = () => {
+    setSliderPopupVisible(true);
+  };
+
+  const closeSliderPopup = () => {
+    setSliderPopupVisible(false);
+  };
 
   const openPopup = () => {
     setPopupVisible(true);
@@ -28,7 +37,8 @@ function HexSection({ title }) {
       `}
     >
       <h2 onClick={openPopup}>Hex</h2>
-      <ColorControls />
+      <ColorControls sliderPopupVisible={sliderPopupVisible} openSliderPopup={openSliderPopup} closeSliderPopup={closeSliderPopup} />
+      {sliderPopupVisible && <SliderPopup onClose={closeSliderPopup} sliderPopupVisible={sliderPopupVisible} />}
       {popupVisible && <CopyPopup onClose={closePopup} />}
     </div>
   );

@@ -1,5 +1,4 @@
-import React from "react";
-import { css, keyframes } from "@emotion/css";
+import { keyframes } from "@emotion/css";
 
 const fadeIn = keyframes`
   from {
@@ -9,5 +8,26 @@ const fadeIn = keyframes`
     opacity: 1;
   }
 `;
+const slideInAnimation = keyframes`
+  from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+`;
+const slideOutAnimation = keyframes`
+from {
+  transform: translateX(-100%);
+  opacity: 1;
+  
+}
+to {
+  transform: translateX(0%);
+  opacity: 0;
+}
+`;
 
-export { fadeIn };
+export { fadeIn, slideInAnimation, slideOutAnimation };
