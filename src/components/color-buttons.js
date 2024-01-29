@@ -1,12 +1,7 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faSliders, faBookOpen, faRotate, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { css } from "@emotion/css";
-
-const Button = styled.button`
-  font-family: "Poppins", sans-serif;
-`;
 
 function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup }) {
   return (
@@ -20,7 +15,7 @@ function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup }
         z-index: 1;
       `}
     >
-      <Button
+      <button
         className={css`
           display: flex;
           flex-direction: column;
@@ -29,8 +24,8 @@ function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup }
         onClick={sliderPopupVisible ? closeSliderPopup : openSliderPopup}
       >
         <FontAwesomeIcon icon={faSliders} />
-      </Button>
-      <Button
+      </button>
+      <button
         className={css`
           display: flex;
           flex-direction: column;
@@ -38,7 +33,7 @@ function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup }
         `}
       >
         <FontAwesomeIcon icon={faLock} />
-      </Button>
+      </button>
     </div>
   );
 }
@@ -76,7 +71,15 @@ function ColorButtons() {
           >
             <FontAwesomeIcon icon={faBookOpen} />
           </button>
-          <p>Library</p>
+          <p
+            className={css`
+              font-family: "Mulish", sans-serif;
+              font-size: 18px;
+              font-weight: 600;
+            `}
+          >
+            Library
+          </p>
         </div>
 
         <div
@@ -101,7 +104,15 @@ function ColorButtons() {
           >
             <FontAwesomeIcon icon={faRotate} />
           </button>
-          <p>Generate</p>
+          <p
+            className={css`
+              font-family: "Mulish", sans-serif;
+              font-size: 18px;
+              font-weight: 600;
+            `}
+          >
+            Generate
+          </p>
         </div>
 
         <div
@@ -126,7 +137,15 @@ function ColorButtons() {
           >
             <FontAwesomeIcon icon={faFloppyDisk} />
           </button>
-          <p>Save</p>
+          <p
+            className={css`
+              font-family: "Mulish", sans-serif;
+              font-size: 18px;
+              font-weight: 600;
+            `}
+          >
+            Save
+          </p>
         </div>
       </div>
     </div>

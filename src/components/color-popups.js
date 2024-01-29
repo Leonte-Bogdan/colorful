@@ -21,14 +21,86 @@ const SliderPopup = ({ onClose, sliderPopupVisible }) => {
         z-index: 1;
       `}
     >
-      <span>Hue</span>
-      <input type="range" min="0" max="360" step="1" name="hue" className="hue-input" data-hue="1" />
+      <span
+        className={css`
+          margin: 0;
+          padding: 0;
+          font-family: "Poppins", sans-serif;
+        `}
+      >
+        Hue
+      </span>
+      <input
+        type="range"
+        min="0"
+        max="360"
+        step="1"
+        name="hue"
+        className={css`
+          appearance: none;
+          margin: 0.65rem 0rem;
+          width: 100%;
+          position: relative;
+          border-radius: 1rem;
+          cursor: pointer;
+          background: pink; /* placeholder */
+        `}
+        data-hue="1"
+      />
 
-      <span>Brightness</span>
-      <input type="range" min="0" max="1" step="0.01" name="brightness" className="bright-input" data-bright="1" />
+      <span
+        className={css`
+          margin: 0;
+          padding: 0;
+          font-family: "Poppins", sans-serif;
+        `}
+      >
+        Brightness
+      </span>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        name="brightness"
+        className={css`
+          appearance: none;
+          margin: 0.65rem 0rem;
+          width: 100%;
+          position: relative;
+          border-radius: 1rem;
+          cursor: pointer;
+          background: pink; /* placeholder */
+        `}
+        data-bright="1"
+      />
 
-      <span>Saturation</span>
-      <input type="range" min="0" max="1" step="0.01" name="saturation" className="sat-input" data-sat="1" />
+      <span
+        className={css`
+          margin: 0;
+          padding: 0;
+          font-family: "Poppins", sans-serif;
+        `}
+      >
+        Saturation
+      </span>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        name="saturation"
+        className={css`
+          appearance: none;
+          margin: 0.65rem 0rem;
+          width: 100%;
+          position: relative;
+          border-radius: 1rem;
+          cursor: pointer;
+          background: pink; /* placeholder */
+        `}
+        data-sat="1"
+      />
       <button
         onClick={onClose}
         className={css`
@@ -38,6 +110,7 @@ const SliderPopup = ({ onClose, sliderPopupVisible }) => {
           cursor: pointer;
           background: transparent;
           border: none;
+          font-family: "Poppins", sans-serif;
         `}
       >
         X
@@ -62,8 +135,9 @@ const CopyPopup = ({ onClose }) => {
         max-width: 300px;
         width: 100%;
         text-align: center;
-        z-index: 1;
+        z-index: 3;
         animation: ${fadeIn} 0.3s ease-out;
+        font-family: "Mulish", sans-serif;
       `}
     >
       <button
@@ -83,8 +157,8 @@ const CopyPopup = ({ onClose }) => {
       </button>
       <h3
         className={css`
-          margin-bottom: 10px;
           color: #333;
+          font-family: "Poppins", sans-serif;
         `}
       >
         Copied to clipboard!

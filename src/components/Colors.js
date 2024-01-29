@@ -1,4 +1,5 @@
 import React from "react";
+import "../fonts/Mulish-Regular.ttf";
 
 import { ColorButtons } from "./color-buttons";
 import { HexSection } from "./color-hex";
@@ -14,6 +15,7 @@ function Colors() {
           flex-direction: row;
           align-items: center;
           justify-content: center;
+          font-family: "Poppins", sans-serif;
         `}
       >
         <HexSection title="Hex 1" />
