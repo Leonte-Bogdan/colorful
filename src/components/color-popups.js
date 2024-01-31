@@ -19,6 +19,7 @@ const SliderPopup = ({ onClose, sliderPopupVisible }) => {
         border-bottom-right-radius: 1rem;
         animation: ${slideInAnimation} 1s ease-in;
         z-index: 1;
+        color: rgb(73, 73, 73);
       `}
     >
       <span
@@ -105,10 +106,13 @@ const SliderPopup = ({ onClose, sliderPopupVisible }) => {
         onClick={onClose}
         className={css`
           position: absolute;
-          top: 5px;
-          right: 5px;
+          top: 0px;
+          right: 0px;
+          padding: 0.5rem;
+          border-bottom-left-radius: 1rem;
           cursor: pointer;
-          background: transparent;
+          background: rgb(73, 73, 73)
+          font-weight: bold;
           border: none;
           font-family: "Poppins", sans-serif;
         `}

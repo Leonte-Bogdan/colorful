@@ -1,20 +1,15 @@
 import React from "react";
-import "../fonts/Mulish-Regular.ttf";
-
-import { ColorButtons } from "./color-buttons";
 import { HexSection } from "./color-hex";
+import { ColorButtons } from "./color-buttons";
 import { css } from "@emotion/css";
+import "../fonts/Mulish-Regular.ttf";
 
 function Colors() {
   return (
     <>
       <div
         className={css`
-          min-height: 45rem;
           display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: center;
           font-family: "Poppins", sans-serif;
         `}
       >
@@ -28,7 +23,6 @@ function Colors() {
 
         <HexSection title="Hex 5" />
       </div>
-
       <ColorButtons />
     </>
   );

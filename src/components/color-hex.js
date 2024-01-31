@@ -2,8 +2,15 @@ import React from "react";
 import { css } from "@emotion/css";
 import { CopyPopup, SliderPopup } from "./color-popups";
 import { ColorControls } from "./color-buttons";
+import chroma from "chroma-js";
+
+const generateHexColor = () => chroma.random().hex();
 
 function HexSection({ title }) {
+  const [hexColor, setHexColor] = React.useState(generateHexColor());
+  const changeColors = () => {
+    setHexColor(generateHexColor());
+  };
   const [popupVisible, setPopupVisible] = React.useState(false);
   const [sliderPopupVisible, setSliderPopupVisible] = React.useState(false);
 
@@ -26,18 +33,34 @@ function HexSection({ title }) {
   return (
     <div
       className={css`
-        height: 25rem;
+        min-height: 80vh;
         display: flex;
+        flex: 1;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-evenly;
         position: relative;
-        flex: 1 1 0%;
         overflow: hidden;
+        background: ${hexColor};
+        margin: 0;
       `}
     >
-      <h2 onClick={openPopup}>Hex</h2>
-      <ColorControls sliderPopupVisible={sliderPopupVisible} openSliderPopup={openSliderPopup} closeSliderPopup={closeSliderPopup} />
+      <h2
+        onClick={openPopup}
+        className={css`
+          cursor: pointer;
+        `}
+      >
+        Hex
+      </h2>
+
+      <ColorControls
+        hexColor={hexColor}
+        changeColors={changeColors}
+        sliderPopupVisible={sliderPopupVisible}
+        openSliderPopup={openSliderPopup}
+        closeSliderPopup={closeSliderPopup}
+      />
       {sliderPopupVisible && <SliderPopup onClose={closeSliderPopup} sliderPopupVisible={sliderPopupVisible} />}
       {popupVisible && <CopyPopup onClose={closePopup} />}
     </div>
