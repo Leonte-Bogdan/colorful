@@ -3,6 +3,7 @@ import { css } from "@emotion/css";
 import { CopyPopup, SliderPopup } from "./color-popups";
 import { ColorControls } from "./color-buttons";
 import chroma from "chroma-js";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const generateHexColor = () => chroma.random().hex();
 
@@ -11,6 +12,7 @@ function HexSection({ title }) {
   const changeColors = () => {
     setHexColor(generateHexColor());
   };
+
   const [popupVisible, setPopupVisible] = React.useState(false);
   const [sliderPopupVisible, setSliderPopupVisible] = React.useState(false);
 
@@ -45,14 +47,18 @@ function HexSection({ title }) {
         margin: 0;
       `}
     >
-      <h2
-        onClick={openPopup}
-        className={css`
-          cursor: pointer;
-        `}
-      >
-        Hex
-      </h2>
+      <CopyToClipboard text={hexColor}>
+        <h2
+          onClick={() => {
+            openPopup();
+          }}
+          className={css`
+            cursor: pointer;
+          `}
+        >
+          {hexColor}
+        </h2>
+      </CopyToClipboard>
 
       <ColorControls
         hexColor={hexColor}

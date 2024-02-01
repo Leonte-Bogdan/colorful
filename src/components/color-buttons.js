@@ -2,8 +2,18 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders, faBookOpen, faRotate, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { css } from "@emotion/css";
+import chroma from "chroma-js";
 
 function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup, changeColors, hexColor }) {
+  const checkColorContrast = (hexColor) => {
+    const luminance = chroma(hexColor).luminance();
+    const textColor = luminance > 0.5 ? "black" : "white";
+    return {
+      color: textColor,
+      luminance: luminance,
+    };
+  };
+
   return (
     <div
       className={css`
@@ -22,7 +32,7 @@ function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup, 
           flex-direction: column;
           background: none;
           border: none;
-          color: white;
+          color: ${checkColorContrast(hexColor).color};
           font-size: 2rem;
           cursor: pointer;
         `}
@@ -37,7 +47,7 @@ function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup, 
           flex-direction: column;
           background: none;
           border: none;
-          color: white;
+          color: ${checkColorContrast(hexColor).color};
           font-size: 2rem;
           cursor: pointer;
         `}
@@ -51,7 +61,7 @@ function ColorControls({ sliderPopupVisible, openSliderPopup, closeSliderPopup, 
           flex-direction: column;
           background: none;
           border: none;
-          color: white;
+          color: ${checkColorContrast(hexColor).color};
           font-size: 2rem;
           cursor: pointer;
         `}
