@@ -1,8 +1,9 @@
 import React from "react";
 import { css } from "@emotion/css";
 import { fadeIn, slideInAnimation } from "../styles/animations";
+import { ColorSlider, BrightnessSlider } from "./color-sliders";
 
-const SliderPopup = ({ onClose, sliderPopupVisible }) => {
+const SliderPopup = ({ onClose, sliderPopupVisible, hexColor, onSliderChange, setHexColor }) => {
   return (
     <div
       className={css`
@@ -19,62 +20,10 @@ const SliderPopup = ({ onClose, sliderPopupVisible }) => {
         border-bottom-right-radius: 1rem;
         animation: ${slideInAnimation} 1s ease-in;
         z-index: 1;
-        color: rgb(73, 73, 73);
       `}
     >
-      <span
-        className={css`
-          margin: 0;
-          padding: 0;
-          font-family: "Poppins", sans-serif;
-        `}
-      >
-        Hue
-      </span>
-      <input
-        type="range"
-        min="0"
-        max="360"
-        step="1"
-        name="hue"
-        className={css`
-          appearance: none;
-          margin: 0.65rem 0rem;
-          width: 100%;
-          position: relative;
-          border-radius: 1rem;
-          cursor: pointer;
-          background: pink; /* placeholder */
-        `}
-        data-hue="1"
-      />
-
-      <span
-        className={css`
-          margin: 0;
-          padding: 0;
-          font-family: "Poppins", sans-serif;
-        `}
-      >
-        Brightness
-      </span>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
-        name="brightness"
-        className={css`
-          appearance: none;
-          margin: 0.65rem 0rem;
-          width: 100%;
-          position: relative;
-          border-radius: 1rem;
-          cursor: pointer;
-          background: pink; /* placeholder */
-        `}
-        data-bright="1"
-      />
+      <ColorSlider setHexColor={setHexColor} hexColor={hexColor} />
+      <BrightnessSlider sliderPopupVisible={sliderPopupVisible} hexColor={hexColor} setHexColor={setHexColor} />
 
       <span
         className={css`
@@ -179,4 +128,4 @@ const CopyPopup = ({ onClose }) => {
   );
 };
 
-export { CopyPopup, SliderPopup };
+export { CopyPopup, SliderPopup, ColorSlider };

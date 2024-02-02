@@ -8,9 +8,22 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 const generateHexColor = () => chroma.random().hex();
 
 function HexSection({ title }) {
+  const checkColorContrast = (hexColor) => {
+    const luminance = chroma(hexColor).luminance();
+    const textColor = luminance > 0.5 ? "black" : "white";
+    return {
+      color: textColor,
+      luminance: luminance,
+    };
+  };
   const [hexColor, setHexColor] = React.useState(generateHexColor());
   const changeColors = () => {
     setHexColor(generateHexColor());
+  };
+
+  const handleSliderChange = (event) => {
+    const newHue = event.target.value;
+    setHexColor(chroma.hsl(newHue, 1, 0.5).hex());
   };
 
   const [popupVisible, setPopupVisible] = React.useState(false);
@@ -54,6 +67,7 @@ function HexSection({ title }) {
           }}
           className={css`
             cursor: pointer;
+            color: ${checkColorContrast(hexColor).color};
           `}
         >
           {hexColor}
@@ -61,13 +75,22 @@ function HexSection({ title }) {
       </CopyToClipboard>
 
       <ColorControls
+        checkColorContrast={checkColorContrast}
         hexColor={hexColor}
         changeColors={changeColors}
         sliderPopupVisible={sliderPopupVisible}
         openSliderPopup={openSliderPopup}
         closeSliderPopup={closeSliderPopup}
       />
-      {sliderPopupVisible && <SliderPopup onClose={closeSliderPopup} sliderPopupVisible={sliderPopupVisible} />}
+      {sliderPopupVisible && (
+        <SliderPopup
+          onSliderChange={handleSliderChange}
+          setHexColor={setHexColor}
+          hexColor={hexColor}
+          onClose={closeSliderPopup}
+          sliderPopupVisible={sliderPopupVisible}
+        />
+      )}
       {popupVisible && <CopyPopup onClose={closePopup} />}
     </div>
   );
