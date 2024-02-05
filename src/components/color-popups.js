@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/css";
 import { fadeIn, slideInAnimation } from "../styles/animations";
-import { ColorSlider, BrightnessSlider } from "./color-sliders";
+import { ColorSlider, BrightnessSlider, SaturationSlider } from "./color-sliders";
 
 const SliderPopup = ({ onClose, sliderPopupVisible, hexColor, onSliderChange, setHexColor }) => {
   return (
@@ -16,58 +16,15 @@ const SliderPopup = ({ onClose, sliderPopupVisible, hexColor, onSliderChange, se
         height: fit-content;
         width: fit-content;
         margin-left: 10px;
-        border-top-right-radius: 1rem;
-        border-bottom-right-radius: 1rem;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
         animation: ${slideInAnimation} 1s ease-in;
         z-index: 1;
       `}
     >
       <ColorSlider setHexColor={setHexColor} hexColor={hexColor} />
-      <BrightnessSlider sliderPopupVisible={sliderPopupVisible} hexColor={hexColor} setHexColor={setHexColor} />
-
-      <span
-        className={css`
-          margin: 0;
-          padding: 0;
-          font-family: "Poppins", sans-serif;
-        `}
-      >
-        Saturation
-      </span>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
-        name="saturation"
-        className={css`
-          appearance: none;
-          margin: 0.65rem 0rem;
-          width: 100%;
-          position: relative;
-          border-radius: 1rem;
-          cursor: pointer;
-          background: pink; /* placeholder */
-        `}
-        data-sat="1"
-      />
-      <button
-        onClick={onClose}
-        className={css`
-          position: absolute;
-          top: 0px;
-          right: 0px;
-          padding: 0.5rem;
-          border-bottom-left-radius: 1rem;
-          cursor: pointer;
-          background: rgb(73, 73, 73)
-          font-weight: bold;
-          border: none;
-          font-family: "Poppins", sans-serif;
-        `}
-      >
-        X
-      </button>
+      <BrightnessSlider hexColor={hexColor} setHexColor={setHexColor} />
+      <SaturationSlider onClose={onClose} hexColor={hexColor} setHexColor={setHexColor} />
     </div>
   );
 };
@@ -127,5 +84,62 @@ const CopyPopup = ({ onClose }) => {
     </div>
   );
 };
+const SavePopup = ({ onClose }) => {
+  return (
+    <div
+      className={css`
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        max-width: 300px;
+        width: 100%;
+        text-align: center;
+        z-index: 3;
+        animation: ${fadeIn} 0.3s ease-out;
+        font-family: "Mulish", sans-serif;
+      `}
+    >
+      <button
+        className={css`
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+          background: none;
+          border: none;
+          font-size: 24px;
+          color: #555;
+        `}
+        onClick={onClose}
+      >
+        X
+      </button>
+      <h3
+        className={css`
+          color: #333;
+          font-family: "Poppins", sans-serif;
+        `}
+      >
+        Added to library!
+      </h3>
+      <span
+        className={css`
+          font-size: 30px;
+          background: linear-gradient(to right, #ff4e50, #fc913a, #f9d423, #2ecc71, #3498db, #9b59b6, #ff4e50);
+          -webkit-background-clip: text;
+          color: transparent;
+        `}
+      >
+        &#10084;
+      </span>
+    </div>
+  );
+};
 
-export { CopyPopup, SliderPopup, ColorSlider };
+export { CopyPopup, SliderPopup, ColorSlider, SavePopup };

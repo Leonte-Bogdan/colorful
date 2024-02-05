@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/css";
-import { CopyPopup, SliderPopup } from "./color-popups";
+import { CopyPopup, SliderPopup, SavePopup } from "./color-popups";
 import { ColorControls } from "./color-buttons";
 import chroma from "chroma-js";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -8,26 +8,10 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 const generateHexColor = () => chroma.random().hex();
 
 function HexSection({ title }) {
-  const checkColorContrast = (hexColor) => {
-    const luminance = chroma(hexColor).luminance();
-    const textColor = luminance > 0.5 ? "black" : "white";
-    return {
-      color: textColor,
-      luminance: luminance,
-    };
-  };
-  const [hexColor, setHexColor] = React.useState(generateHexColor());
-  const changeColors = () => {
-    setHexColor(generateHexColor());
-  };
-
-  const handleSliderChange = (event) => {
-    const newHue = event.target.value;
-    setHexColor(chroma.hsl(newHue, 1, 0.5).hex());
-  };
-
   const [popupVisible, setPopupVisible] = React.useState(false);
   const [sliderPopupVisible, setSliderPopupVisible] = React.useState(false);
+  const [hexColor, setHexColor] = React.useState(generateHexColor());
+  const [savePopupVisible, setSavePopupVisible] = React.useState(false);
 
   const openSliderPopup = () => {
     setSliderPopupVisible(true);
@@ -43,6 +27,34 @@ function HexSection({ title }) {
 
   const closePopup = () => {
     setPopupVisible(false);
+  };
+
+  const closeSavePopup = () => {
+    setSavePopupVisible(false);
+  };
+
+  const checkColorContrast = (hexColor) => {
+    const luminance = chroma(hexColor).luminance();
+    const textColor = luminance > 0.5 ? "black" : "white";
+    return {
+      color: textColor,
+      luminance: luminance,
+    };
+  };
+  const changeColors = () => {
+    setHexColor(generateHexColor());
+  };
+
+  const handleSliderChange = (event) => {
+    const newHue = event.target.value;
+    setHexColor(chroma.hsl(newHue, 1, 0.5).hex());
+  };
+
+  const saveColor = () => {
+    const savedColors = JSON.parse(localStorage.getItem("savedColors") || "[]");
+    const updatedColors = [...savedColors, hexColor];
+    localStorage.setItem("savedColors", JSON.stringify(updatedColors));
+    setSavePopupVisible(true);
   };
 
   return (
@@ -75,6 +87,7 @@ function HexSection({ title }) {
       </CopyToClipboard>
 
       <ColorControls
+        saveColor={saveColor}
         checkColorContrast={checkColorContrast}
         hexColor={hexColor}
         changeColors={changeColors}
@@ -92,6 +105,7 @@ function HexSection({ title }) {
         />
       )}
       {popupVisible && <CopyPopup onClose={closePopup} />}
+      {savePopupVisible && <SavePopup onClose={closeSavePopup} />}
     </div>
   );
 }

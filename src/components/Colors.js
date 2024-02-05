@@ -1,6 +1,6 @@
 import React from "react";
 import { HexSection } from "./color-hex";
-import { ColorButtons } from "./color-buttons";
+import { LibraryButton } from "./color-menu";
 import { css } from "@emotion/css";
 import "../fonts/Mulish-Regular.ttf";
 
@@ -23,7 +23,7 @@ function Colors() {
 
         <HexSection title="Hex 5" />
       </div>
-      <ColorButtons />
+      <LibraryButton />
     </>
   );
 }
