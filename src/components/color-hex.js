@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/css";
-import { CopyPopup, SliderPopup, SavePopup } from "./color-popups";
+import { CopyPopup, SliderPopup, SavePopup, ColorExistsPopup } from "./color-popups";
 import { ColorControls } from "./color-buttons";
 import chroma from "chroma-js";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -8,6 +8,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 const generateHexColor = () => chroma.random().hex();
 
 function HexSection({ title }) {
+  const [colorExistsPopupVisible, setColorExistsPopupVisible] = React.useState(false);
   const [popupVisible, setPopupVisible] = React.useState(false);
   const [sliderPopupVisible, setSliderPopupVisible] = React.useState(false);
   const [hexColor, setHexColor] = React.useState(generateHexColor());
@@ -51,10 +52,29 @@ function HexSection({ title }) {
   };
 
   const saveColor = () => {
-    const savedColors = JSON.parse(localStorage.getItem("savedColors") || "[]");
-    const updatedColors = [...savedColors, hexColor];
-    localStorage.setItem("savedColors", JSON.stringify(updatedColors));
-    setSavePopupVisible(true);
+    const savedColorsCount = parseInt(localStorage.getItem("savedColorsCount") || "0");
+    let isColorExists = false;
+    const hexColorText = chroma(hexColor).hex();
+
+    for (let i = 1; i <= savedColorsCount; i++) {
+      const key = `savedColor${i}`;
+      const colorText = localStorage.getItem(key);
+      if (colorText === hexColorText) {
+        isColorExists = true;
+        break;
+      }
+    }
+    if (!isColorExists) {
+      const updatedCount = savedColorsCount + 1;
+      const key = `savedColor${updatedCount}`;
+
+      localStorage.setItem(key, hexColorText);
+      localStorage.setItem("savedColorsCount", updatedCount.toString());
+
+      setSavePopupVisible(true);
+    } else {
+      setColorExistsPopupVisible(true);
+    }
   };
 
   return (
@@ -106,6 +126,7 @@ function HexSection({ title }) {
       )}
       {popupVisible && <CopyPopup onClose={closePopup} />}
       {savePopupVisible && <SavePopup onClose={closeSavePopup} />}
+      {colorExistsPopupVisible && <ColorExistsPopup onClose={() => setColorExistsPopupVisible(false)} />}
     </div>
   );
 }

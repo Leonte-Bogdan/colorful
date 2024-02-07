@@ -142,4 +142,53 @@ const SavePopup = ({ onClose }) => {
   );
 };
 
-export { CopyPopup, SliderPopup, ColorSlider, SavePopup };
+const ColorExistsPopup = ({ onClose }) => {
+  return (
+    <div
+      className={css`
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        max-width: 300px;
+        width: 100%;
+        text-align: center;
+        z-index: 3;
+        animation: ${fadeIn} 0.3s ease-out;
+        font-family: "Mulish", sans-serif;
+      `}
+    >
+      <button
+        className={css`
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+          background: none;
+          border: none;
+          font-size: 24px;
+          color: #555;
+        `}
+        onClick={onClose}
+      >
+        X
+      </button>
+      <h3
+        className={css`
+          color: #333;
+          font-family: "Poppins", sans-serif;
+          font-size: 1.2rem;
+        `}
+      >
+        Color already existent in library!
+      </h3>
+    </div>
+  );
+};
+
+export { CopyPopup, SliderPopup, ColorSlider, SavePopup, ColorExistsPopup };

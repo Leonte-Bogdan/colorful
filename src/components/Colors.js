@@ -1,6 +1,6 @@
 import React from "react";
 import { HexSection } from "./color-hex";
-import { LibraryButton } from "./color-menu";
+import { LibraryButton } from "./color-library";
 import { css } from "@emotion/css";
 import "../fonts/Mulish-Regular.ttf";
 
