@@ -42,13 +42,9 @@ function HexSection({ title }) {
       luminance: luminance,
     };
   };
+
   const changeColors = () => {
     setHexColor(generateHexColor());
-  };
-
-  const handleSliderChange = (event) => {
-    const newHue = event.target.value;
-    setHexColor(chroma.hsl(newHue, 1, 0.5).hex());
   };
 
   const saveColor = () => {
@@ -99,6 +95,7 @@ function HexSection({ title }) {
           }}
           className={css`
             cursor: pointer;
+            font-size: 1.5rem;
             color: ${checkColorContrast(hexColor).color};
           `}
         >
@@ -115,15 +112,7 @@ function HexSection({ title }) {
         openSliderPopup={openSliderPopup}
         closeSliderPopup={closeSliderPopup}
       />
-      {sliderPopupVisible && (
-        <SliderPopup
-          onSliderChange={handleSliderChange}
-          setHexColor={setHexColor}
-          hexColor={hexColor}
-          onClose={closeSliderPopup}
-          sliderPopupVisible={sliderPopupVisible}
-        />
-      )}
+      {sliderPopupVisible && <SliderPopup setHexColor={setHexColor} hexColor={hexColor} onClose={closeSliderPopup} />}
       {popupVisible && <CopyPopup onClose={closePopup} />}
       {savePopupVisible && <SavePopup onClose={closeSavePopup} />}
       {colorExistsPopupVisible && <ColorExistsPopup onClose={() => setColorExistsPopupVisible(false)} />}

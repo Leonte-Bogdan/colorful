@@ -3,7 +3,7 @@ import { css } from "@emotion/css";
 import { fadeIn, slideInAnimation } from "../styles/animations";
 import { ColorSlider, BrightnessSlider, SaturationSlider } from "./color-sliders";
 
-const SliderPopup = ({ onClose, sliderPopupVisible, hexColor, onSliderChange, setHexColor }) => {
+const SliderPopup = ({ onClose, hexColor, setHexColor }) => {
   return (
     <div
       className={css`
@@ -84,6 +84,7 @@ const CopyPopup = ({ onClose }) => {
     </div>
   );
 };
+
 const SavePopup = ({ onClose }) => {
   return (
     <div

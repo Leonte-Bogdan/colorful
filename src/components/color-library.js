@@ -83,8 +83,6 @@ const SavedColorsModal = ({ onClose }) => {
     colorsFromLocalStorage.push(hexColor);
   }
 
-  //Removing the color by its hexCode
-
   const removeColor = (color) => {
     const indexToRemove = colorTexts.indexOf(color);
 
@@ -113,6 +111,7 @@ const SavedColorsModal = ({ onClose }) => {
     }
     setColorTexts(colorsFromLocalStorage);
   }, [savedColorsCount]);
+
   return (
     <div
       className={css`

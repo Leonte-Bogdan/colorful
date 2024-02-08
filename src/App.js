@@ -1,5 +1,6 @@
 import React from "react";
 import { Colors } from "./components/Colors";
+import "./index.css";
 
 function App() {
   return (
