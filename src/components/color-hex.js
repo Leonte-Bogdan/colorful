@@ -1,14 +1,20 @@
-import React from "react";
-import { css } from "@emotion/css";
-import { CopyPopup, SliderPopup, SavePopup, ColorExistsPopup } from "./color-popups";
-import { ColorControls } from "./color-buttons";
-import chroma from "chroma-js";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import React from 'react';
+import { css } from '@emotion/css';
+import {
+  CopyPopup,
+  SliderPopup,
+  SavePopup,
+  ColorExistsPopup,
+} from './color-popups';
+import { ColorControls } from './color-buttons';
+import chroma from 'chroma-js';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const generateHexColor = () => chroma.random().hex();
 
 function HexSection({ title }) {
-  const [colorExistsPopupVisible, setColorExistsPopupVisible] = React.useState(false);
+  const [colorExistsPopupVisible, setColorExistsPopupVisible] =
+    React.useState(false);
   const [popupVisible, setPopupVisible] = React.useState(false);
   const [sliderPopupVisible, setSliderPopupVisible] = React.useState(false);
   const [hexColor, setHexColor] = React.useState(generateHexColor());
@@ -36,7 +42,7 @@ function HexSection({ title }) {
 
   const checkColorContrast = (hexColor) => {
     const luminance = chroma(hexColor).luminance();
-    const textColor = luminance > 0.5 ? "black" : "white";
+    const textColor = luminance > 0.5 ? 'black' : 'white';
     return {
       color: textColor,
       luminance: luminance,
@@ -48,24 +54,19 @@ function HexSection({ title }) {
   };
 
   const saveColor = () => {
-    const savedColorsCount = parseInt(localStorage.getItem("savedColorsCount") || "0");
-    let isColorExists = false;
-    const hexColorText = chroma(hexColor).hex();
+    const savedColorsCount = parseInt(
+      localStorage.getItem('savedColorsCount') || '0'
+    );
 
-    for (let i = 1; i <= savedColorsCount; i++) {
-      const key = `savedColor${i}`;
-      const colorText = localStorage.getItem(key);
-      if (colorText === hexColorText) {
-        isColorExists = true;
-        break;
-      }
-    }
-    if (!isColorExists) {
+    const hexColorText = chroma(hexColor).hex();
+    const colorExistsInLocalStorage = localStorage.getItem(hexColorText);
+
+    if (!colorExistsInLocalStorage) {
       const updatedCount = savedColorsCount + 1;
       const key = `savedColor${updatedCount}`;
 
       localStorage.setItem(key, hexColorText);
-      localStorage.setItem("savedColorsCount", updatedCount.toString());
+      localStorage.setItem('savedColorsCount', updatedCount.toString());
 
       setSavePopupVisible(true);
     } else {
@@ -88,20 +89,20 @@ function HexSection({ title }) {
         margin: 0;
       `}
     >
-      <CopyToClipboard text={hexColor}>
-        <h2
-          onClick={() => {
-            openPopup();
-          }}
-          className={css`
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: ${checkColorContrast(hexColor).color};
-          `}
-        >
-          {hexColor}
-        </h2>
-      </CopyToClipboard>
+      <h2
+        onClick={async (value) => {
+          console.log('value = ', value);
+
+          await navigator.clipboard.write(value);
+        }}
+        className={css`
+          cursor: pointer;
+          font-size: 1.5rem;
+          color: ${checkColorContrast(hexColor).color};
+        `}
+      >
+        {hexColor}
+      </h2>
 
       <ColorControls
         saveColor={saveColor}
@@ -112,12 +113,21 @@ function HexSection({ title }) {
         openSliderPopup={openSliderPopup}
         closeSliderPopup={closeSliderPopup}
       />
-      {sliderPopupVisible && <SliderPopup setHexColor={setHexColor} hexColor={hexColor} onClose={closeSliderPopup} />}
+      {sliderPopupVisible && (
+        <SliderPopup
+          setHexColor={setHexColor}
+          hexColor={hexColor}
+          onClose={closeSliderPopup}
+        />
+      )}
       {popupVisible && <CopyPopup onClose={closePopup} />}
       {savePopupVisible && <SavePopup onClose={closeSavePopup} />}
-      {colorExistsPopupVisible && <ColorExistsPopup onClose={() => setColorExistsPopupVisible(false)} />}
+      {colorExistsPopupVisible && (
+        <ColorExistsPopup onClose={() => setColorExistsPopupVisible(false)} />
+      )}
     </div>
   );
 }
 
 export { HexSection };
+
